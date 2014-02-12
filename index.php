@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8'>    
-    </head>
-    <body>
+<?
+include('templates/site_header.php');
+
+
+include('templates/site_footer.php');
+?>      
         
-        
-    </body>
-</html>
