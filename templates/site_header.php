@@ -9,6 +9,7 @@
         <script src="js/jquery.js"></script>
         <script src="js/fastclick.js"></script>
         <script src="js/foundation.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <script> $(document).foundation();</script>
