@@ -1,3 +1,3 @@
 D-Pass
 ======
-Passwort Manager
+Online Passwort Manager
