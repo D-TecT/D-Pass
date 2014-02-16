@@ -11,6 +11,7 @@ define ("STRING_LOGOUT_CONFIRM","Confirm logout");
 define ("STRING_ERROR_CRITICAL_DEFAULT","Something went terribly wrong. Please contact your administrator");
 define ("STRING_ERROR_DB_NOCONFIG","Database config incomplete. Make sure that you configured dbhost, dbname, dbuser and dbpass.");
 define ("STRING_ERROR_DB_NOCONNECT","Cannot connect to database server. Check your config!");
+define ("STRING_ERROR_DB_NOTABLE","Cannot create needed database tables. Check the priviligeges of the given user!");
 define ("STRING_ERROR_NOCOOKIES","To use this interface, you have to enable session cookies");
 define ("STRING_ERROR_NOSCRIPT","To use this interface, you have to enable javascript");
 ?>

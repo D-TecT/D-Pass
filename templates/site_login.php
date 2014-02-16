@@ -1,5 +1,5 @@
   
-    <nav class="top-bar" data-topbar>
+ <!--   <nav class="top-bar" data-topbar>
         <ul class="title-area"> 
             <li class="name"> 
                 <h1><a href="#"><img src="img/logo_dit.png" />  D-Pass</a></h1> 
@@ -20,10 +20,19 @@
             </ul>
         </section> 
     </nav>
-
+!-->
 
 <div class="hide-for-small">&nbsp;</div>
-<noscript><div class="row"><div class="small-12 columns"><div data-alert class="alert-box alert"><? print STRING_ERROR_NOSCRIPT; ?></div></div></div></noscript>
+<noscript>
+  <div class="show-for-small">&nbsp;</div>
+  <div class="row">
+      <div class="hide-for-small medium-2 large-3 columns">&nbsp;</div>
+      <div class="small-12 medium-8 large-6 columns">
+          <div data-alert class="alert-box alert"><? print STRING_ERROR_NOSCRIPT; ?></div>
+      </div>
+      <div class="hide-for-small medium-2 large-3 columns">&nbsp;</div>
+  </div>
+</noscript>
 <div class="row">
     <div class="hide-for-small medium-2 large-3 columns">&nbsp;</div>
     <div class="small-12 medium-8 large-6 columns contentdiv">
@@ -43,8 +52,13 @@
                 </label>
             </div>
         </div>
-        <a onclick="javascript:$('#frm_login').submit();" class="button expand radius"><? echo STRING_LOGIN_SUBMIT; ?></a>
+        <a onclick="login();" class="button expand radius"><? echo STRING_LOGIN_SUBMIT; ?></a>
         </form>
     </div>
     <div class="hide-for-small medium-2 large-3 columns">&nbsp;</div>
 </div>
+<script>
+  function login() {
+    $('#frm_login').submit();    
+  }
+</script>

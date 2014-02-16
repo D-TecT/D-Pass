@@ -1,12 +1,7 @@
 <?php
 $config=array();
 
-$config["dbhost"]="localhost";
-$config["dbuser"]="dpass";
-$config["dbpass"]="dpass";
-$config["dbname"]="dpass";
-
-$config["debug"]=True;
+include ('config.php');
 
 
 class Config {
@@ -21,8 +16,9 @@ class Config {
     function getValue($name) {
         if (isset(self::$config[$name])) 
             return self::$config[$name];
-        else 
-            return False;
+        else {
+            return DB::getConfig($name);
+        }
     }
     
     function init() {
@@ -31,6 +27,8 @@ class Config {
         self::$config["lang"]="en";
         self::$config["dbengine"]="mysql";
         self::$config["debug"]=False;
+        self::$config["sessiontimeout"]=3600;
+        
         foreach ($config as $key=>$value) {
             self::$config[$key]=$value;
         }
