@@ -12,10 +12,10 @@
              <ul class="right">
                 <li class="divider"></li>
                 <li class="hide-for-small">
-                    <a href="#"><? echo STRING_LOGOUT; ?></a>
+                    <a href="index.php?action=logout"><? echo STRING_LOGOUT; ?></a>
                 </li> 
                 <li class="show-for-small">
-                    <a href="#"><? echo STRING_LOGOUT_CONFIRM; ?></a>
+                    <a href="index.php?action=logout"><? echo STRING_LOGOUT_CONFIRM; ?></a>
                 </li> 
             </ul>
         </section> 

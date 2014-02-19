@@ -2,6 +2,14 @@
 ob_start();
 include("includes/environment.php");
 
+if (isset($_GET["action"]))
+    switch ($_GET["action"]) {
+        case "logout":
+            Session::destroySession();
+            break;
+    }
+
+
 include('templates/site_header.php');
 
 if (Session::getUserid()==0) {

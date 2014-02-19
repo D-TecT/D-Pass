@@ -27,10 +27,19 @@ class DB {
       $dbversion=intval(self::getConfig('dbversion'));
       if ($dbversion<1) {
         self::$conn->query('create table if not exists `user` (`userid` int auto_increment primary key, `name` varchar(256), `priv` varchar(8192), `pub` varchar(4096), UNIQUE key `name` (`name`))');      
-        self::$conn->query('insert into `user` (`name`,`priv`,`pub`) values ("admin","'.openssl_digest('admin_SALT','sha512').':SALT'.'","EMPTY")');
-        self::$conn->query('create table if not exists `sessions` (`sid` varchar(256) primary key, `spriv` varchar(8192), `userid` int, `timeout` int)');      
+        self::createUser('admin','admin');
+        self::$conn->query('create table if not exists `sessions` (`sid` varchar(64) primary key, `spriv` varchar(8192), `userid` int, `timeout` int)');      
         
       }
+    }
+    
+    function createUser($name,$pass) {
+      $salt=openssl_random_pseudo_bytes(64);
+      $pass=$salt.openssl_digest($pass.$salt,'sha512',true);
+      $q=self::$conn->prepare ('insert into `user` (`name`,`priv`,`pub`) values (?,?,"EMPTY")');
+      $q->bind_param('ss',$name,$pass);
+      $q->execute();
+      $q->close();  
     }
     
     function getConfig($name) {
@@ -93,6 +102,13 @@ class DB {
         $q->execute();
         $q->close();      
       }            
+    }
+    
+    function destroySession($sid) {
+       $q=self::$conn->prepare ('delete from `sessions` where `sid`=?');
+       $q->bind_param('s',$sid);
+       $q->execute();
+       $q->close();    
     }
     
     function getUserById($userid) {
