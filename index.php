@@ -13,11 +13,11 @@ if (isset($_GET["action"]))
 include('templates/site_header.php');
 
 if (Session::getUserid()==0) {
-  include('templates/site_minimalmenu.php');
-  include('templates/site_login.php');
+    include('templates/site_minimalmenu.php');
+    include('templates/site_login.php');
 } else if (Session::getUserpriv()==False) {
     include('templates/site_logoutmenu.php');
-    print "create keys";    
+    include('templates/site_changepassword.php');
 }  
 
 include('templates/site_footer.php');

@@ -28,7 +28,9 @@ class Config {
         self::$config["dbengine"]="mysql";
         self::$config["debug"]=False;
         self::$config["sessiontimeout"]=3600;
-        
+        self::$config["userpasswordrules"]=array('[a-z]','[A-Z]','[0-9]');
+        self::$config["userpasswordminlen"]=8;
+                
         foreach ($config as $key=>$value) {
             self::$config[$key]=$value;
         }

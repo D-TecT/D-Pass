@@ -1,6 +1,24 @@
 <?php
 
 class Error {
+    private static $errorfields=array();  
+    
+    /**
+     * 
+     */
+    function setErrorField($name,$text) {
+        self::$errorfields[$name]=$text;
+    }
+    
+    function getErrorField($name) {
+        if (isset(self::$errorfields[$name])) {
+            return self::$errorfields[$name]; 
+        } else {
+            return False;
+        }
+    }
+    
+    
     /**
      * Prints a error box with specified message. Exits execution
      * 
