@@ -1,5 +1,8 @@
 <?php
 define('SCRIPT_NAME',$_SERVER["SCRIPT_NAME"]);
+include ('includes/class_gpc.php');
+include ('includes/class_htmlresponse.php');
+include ('includes/class_jsonresponse.php');
 include ('includes/class_config.php');
 
 $lang=Config::getValue("lang");
@@ -9,6 +12,8 @@ else
     include ('lang/lang.en.php');
 
 include ('includes/class_error.php');
+
+include ('includes/class_crypto.php');
 
 $dbengine=Config::getValue("dbengine");
 if ($lang and file_exists('includes/class_db_'.$dbengine.'.php'))

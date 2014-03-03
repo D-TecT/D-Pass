@@ -33,6 +33,13 @@ class DB {
       }
     }
     
+    function updateUserkey($userid,$priv,$pub) {
+      $q=self::$conn->prepare ('update `user` set `priv`=?, `pub`=? where `userid`=?');
+      $q->bind_param('ssi',$priv,$pub,$userid);
+      $q->execute();
+      $q->close();  
+    }
+    
     function createUser($name,$pass) {
       $salt=openssl_random_pseudo_bytes(64);
       $pass=$salt.openssl_digest($pass.$salt,'sha512',true);

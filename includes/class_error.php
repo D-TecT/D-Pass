@@ -27,8 +27,8 @@ class Error {
   function printCriticalError($message) {
       $debugmode=Config::getValue("debug");
       ob_end_flush();
-      include('templates/site_header.php');
-      include('templates/site_minimalmenu.php');
+      HTMLResponse::print_page('header');
+      HTMLResponse::print_page('minimalmenu');
       ?><div class="">&nbsp;</div>
       <div class="row">
       <div class="hide-for-small medium-2 large-3 columns">&nbsp;</div>
@@ -48,7 +48,7 @@ class Error {
       </div>
       <div class="hide-for-small medium-2 large-3 columns">&nbsp;</div>
       </div><?
-      include('templates/site_footer.php');
+      HTMLResponse::print_page('footer');
       die();
   } 
   
