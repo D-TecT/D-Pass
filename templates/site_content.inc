@@ -5,18 +5,30 @@
         <!-- Off Canvas Menu -->
     <aside class="left-off-canvas-menu">
         <!-- whatever you want goes here -->
-        <div id="jstree_demo_div2" style="background-color:lightgrey; min-height:100%;">
-                                  </div>
+        <div id="tree_column_small">
+            <ul class="button-group" id="tree_control_small">
+               <li class="tree_button"><a href="#" class="small button secondary">[STRING_CONTENT_ADDGROUP]</a></li>
+               <li class="tree_button"><a href="#" class="small button secondary">[STRING_CONTENT_ADDENTRY]</a></li>
+            </ul>
+            <div id="tree_small">
+            </div>
+        </div>
     </aside>
+        <a class="left-off-canvas-toggle hide-for-medium-up treemenu">[STRING_CONTENT_OPENMENU]</a> 
             <div class="row">
                 <div class="hide-for-small medium-1 columns">&nbsp;</div>
                 <div id="content" class="small-12 medium-10 columns panel" style="margin-bottom:0px;">
-        <a class="left-off-canvas-toggle hide-for-medium-up" >Menu</a> 
                     <div class="row" style="height:100%;">
-                        <div class="hide-for-small medium-5 columns treeback">
-                                <div id="jstree_demo_div1">
-                                  </div>
-                        </div>
+                        <div id="tree_column_large" class="hide-for-small medium-5 columns">
+                            <ul class="button-group" id="tree_control_large">
+                                <li class="tree_button"><a href="#" class="small button secondary">[STRING_CONTENT_ADDGROUP]</a></li>
+                                <li class="tree_button"><a href="#" class="small button secondary">[STRING_CONTENT_ADDENTRY]</a></li>
+                            </ul>
+                          <div class="treeback">
+                            <div id="tree_large">
+                            </div>
+                          </div>
+                        </div>    
                         <div class="small-12 medium-7 columns">
                         </div>
                     </div>
@@ -29,22 +41,28 @@
 </div>
 
 <script>
-$('#jstree_demo_div2').jstree({'core' : {
+$('#tree_large').jstree({'core' : {
+        "check_callback":true,
     'data' : [
        { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
        { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
        { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
        { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
     ]
-} });
-$('#jstree_demo_div1').jstree({'core' : {
+},
+ 'plugins': ["dnd","wholerow"]
+});
+$('#tree_small').jstree({'core' : {
+    "check_callback":true,
     'data' : [
        { "id" : "ajson11", "parent" : "#", "text" : "Simple root node" },
        { "id" : "ajson21", "parent" : "#", "text" : "Root node 2" },
        { "id" : "ajson31", "parent" : "ajson21", "text" : "Child 1" },
        { "id" : "ajson41", "parent" : "ajson21", "text" : "Child 2" },
     ]
-} });
+},
+ 'plugins': ["dnd","wholerow"]
+});
 
 $(document).ready(sizeContent);
 $(window).resize(sizeContent);

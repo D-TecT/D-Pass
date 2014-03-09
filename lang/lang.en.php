@@ -26,6 +26,10 @@ define ("STRING_CHANGEPW_NEWPW_LETTER_ERROR","New password does not contain all 
 define ("STRING_CHANGEPW_NEWPW_RULES","Your password must have a minimum length of %d and has to contain the following letters: %s");
 define ("STRING_CHANGEPW_OLDPW_MATCH_ERROR","Old password is wrong");
 
+define ("STRING_CONTENT_OPENMENU","Select Entry");
+define ("STRING_CONTENT_ADDGROUP","Add Group");
+define ("STRING_CONTENT_ADDENTRY","Add Entry");
+
 
 define ("STRING_ERROR_CRITICAL_DEFAULT","Something went terribly wrong. Please contact your administrator");
 define ("STRING_ERROR_DB_NOCONFIG","Database config incomplete. Make sure that you configured dbhost, dbname, dbuser and dbpass.");
