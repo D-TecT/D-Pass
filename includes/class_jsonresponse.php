@@ -5,19 +5,19 @@ class JSONResponse {
     private static $action=False;
     private static $data=False;
     
-    public function setResponsecode($code) {
+    public static function setResponsecode($code) {
       self::$responsecode=$code;
     }
     
-    public function setAction($action) {
+    public static function setAction($action) {
         self::$action=$action;
     }
 
-    public function setData($data) {
+    public static function setData($data) {
         self::$data=$data;
     }
     
-    public function response() {
+    public static function response() {
       $arr=array();
       $arr['responsecode']=self::$responsecode;
       $arr['action']=self::$action;

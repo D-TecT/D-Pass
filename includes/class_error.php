@@ -6,11 +6,11 @@ class Error {
     /**
      * 
      */
-    function setErrorField($name,$text) {
+    static function setErrorField($name,$text) {
         self::$errorfields[$name]=$text;
     }
     
-    function getErrorField($name) {
+    static function getErrorField($name) {
         if (isset(self::$errorfields[$name])) {
             return self::$errorfields[$name]; 
         } else {
@@ -24,7 +24,7 @@ class Error {
      * 
      * @param type $message errormessage to print
      */    
-  function printCriticalError($message) {
+  static function printCriticalError($message) {
       $debugmode=Config::getValue("debug");
       ob_end_flush();
       HTMLResponse::print_page('header');

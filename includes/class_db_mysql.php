@@ -7,7 +7,7 @@ class DB {
      * Opens datebase connection
      * 
      */
-    function connect() {
+    static function connect() {
       if (!(Config::getValue('dbhost') and Config::getValue('dbuser') and Config::getValue('dbpass') and Config::getValue('dbname'))) {
           Error::printCriticalError(STRING_ERROR_DB_NOCONFIG);
       } 
@@ -23,7 +23,7 @@ class DB {
       self::$conn->query('insert ignore into `config` (`name`,`value`) values ("dbversion","0")');
     }
     
-    function updateDB() {
+    static function updateDB() {
       $dbversion=intval(self::getConfig('dbversion'));
       if ($dbversion<1) {
         self::$conn->query('create table if not exists `user` (`userid` int auto_increment primary key, `name` varchar(256), `priv` varchar(8192), `pub` varchar(4096), UNIQUE key `name` (`name`))');      
@@ -33,14 +33,14 @@ class DB {
       }
     }
     
-    function updateUserkey($userid,$priv,$pub) {
+    static function updateUserkey($userid,$priv,$pub) {
       $q=self::$conn->prepare ('update `user` set `priv`=?, `pub`=? where `userid`=?');
       $q->bind_param('ssi',$priv,$pub,$userid);
       $q->execute();
       $q->close();  
     }
     
-    function createUser($name,$pass) {
+    static function createUser($name,$pass) {
       $salt=openssl_random_pseudo_bytes(64);
       $pass=$salt.openssl_digest($pass.$salt,'sha512',true);
       $q=self::$conn->prepare ('insert into `user` (`name`,`priv`,`pub`) values (?,?,"EMPTY")');
@@ -49,7 +49,7 @@ class DB {
       $q->close();  
     }
     
-    function getConfig($name) {
+    static function getConfig($name) {
       $q=self::$conn->prepare ('select `value` from `config` where `name`=?');
       $q->bind_param('s',$name);
       $q->execute();
@@ -62,17 +62,18 @@ class DB {
       $q->close();
     }
     
-    function setConfig($name,$value) {
+    static function setConfig($name,$value) {
       $q=self::$conn->prepare ('insert into `config` (`name`,`value`) values (?,?) on duplicate key update `value`=?');
       $q->bind_param('sss',$name,$value,$value);
       $q->execute();
       $q->close();
     }
     
-    function getSession($sid) {
+    static function getSession($sid) {
       $timeout=time()+Config::getValue('sessiontimeout');  
       $q=self::$conn->prepare ('delete from `sessions` where timeout<?');
-      $q->bind_param('i',time());
+      $t=time();
+      $q->bind_param('i',$t);
       $q->execute();
       $q->close();  
       $q=self::$conn->prepare ('update `sessions` set `timeout`=? where `sid`=?');
@@ -91,7 +92,7 @@ class DB {
       $q->close();
     }
     
-    function updateSession($sid,$spriv,$userid) {
+    static function updateSession($sid,$spriv,$userid) {
       $timeout=time()+Config::getValue('sessiontimeout');  
       $q=self::$conn->prepare ('insert ignore into `sessions` (`sid`,`spriv`,`userid`,`timeout`) values (?,"",0,?)');
       $q->bind_param('si',$sid,$timeout);
@@ -111,14 +112,14 @@ class DB {
       }            
     }
     
-    function destroySession($sid) {
+    static function destroySession($sid) {
        $q=self::$conn->prepare ('delete from `sessions` where `sid`=?');
        $q->bind_param('s',$sid);
        $q->execute();
        $q->close();    
     }
     
-    function getUserById($userid) {
+    static function getUserById($userid) {
       $q=self::$conn->prepare ('select `name`,`priv`,`pub` from `user` where `userid`=?');
       $q->bind_param('i',$userid);
       $q->execute();
@@ -131,7 +132,7 @@ class DB {
       $q->close();
     }
     
-    function getUserByName($name) {
+    static function getUserByName($name) {
       $q=self::$conn->prepare ('select `userid`,`priv`,`pub` from `user` where `name`=?');
       $q->bind_param('s',$name);
       $q->execute();

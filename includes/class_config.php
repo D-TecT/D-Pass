@@ -13,7 +13,7 @@ class Config {
      * @param string $name Name of config value
      * @return boolean returns config value or false if there is no config value for the given name
      */
-    function getValue($name) {
+    static function getValue($name) {
         if (isset(self::$config[$name])) 
             return self::$config[$name];
         else {
@@ -21,7 +21,7 @@ class Config {
         }
     }
     
-    function init() {
+    static function init() {
         global $config;
         // default config values
         self::$config["lang"]="en";

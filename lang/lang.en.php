@@ -41,4 +41,7 @@ define ("STRING_ERROR_UNEXPECTED","An unexpected error occured. Please try again
 define ("STRING_ERROR_CRYPTO_HASHCHECK","Hash function check failed");
 define ("STRING_ERROR_CRYPTO_PBKDF2CHECK","PBKDF2 check failed");
 define ("STRING_ERROR_CRYPTO_AESCHECK","AES check failed");
+define ("STRING_ERROR_CRYPTO_NOMCRYPT","PHP MCrypt Module is not installed");
+
+
 ?>

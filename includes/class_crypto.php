@@ -1,19 +1,23 @@
 <?php
 
+if (!function_exists("mcrypt_encrypt")) {
+#  die(STRING_ERROR_CRYPTO_NOMCRYPT);    
+}
+
 class Crypto {
 
-    public function getRandomBytes($len) {
+    static public function getRandomBytes($len) {
         return openssl_random_pseudo_bytes($len);
     }
     
-    public function hash($data,$Hash,$raw_output=false) {
+    static public function hash($data,$Hash,$raw_output=false) {
         if(!in_array($Hash, openssl_get_md_methods(), true)) {
             return False;
         }
         return openssl_digest($data,$Hash,$raw_output);
     }
     
-    public function generateRSAKey(&$privKey,&$pubKey,$keyLen=4096) {
+    static public function generateRSAKey(&$privKey,&$pubKey,$keyLen=4096) {
         $config = array(
              "private_key_bits" => $keyLen,
              "private_key_type" => OPENSSL_KEYTYPE_RSA);
@@ -23,7 +27,7 @@ class Crypto {
         $pubKey=$tmp["key"];
     }
    
-    public function encrypt($data,$key,$test=false) {
+    static public function encrypt($data,$key,$test=false) {
       // for test fixed iv and no padding
       if ($test) {
         $iv="\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F";   
@@ -42,7 +46,7 @@ class Crypto {
         return $iv.$out;  
     }
     
-    public function decrypt($data,$key) {
+    static public function decrypt($data,$key) {
       // for test fixed iv and no padding
       $iv=  substr($data, 0,16);    
       $data=substr($data,16);
@@ -63,7 +67,7 @@ class Crypto {
      *  @param bool $raw_output True: Raw output; False: Hex output 
      *  @return string derived key, a dkLen-octet string
      */
-    function pbkdf2($P, $S, $c = 1000, $dkLen = 32, $Hash = 'sha256', $raw_output = false)
+    static function pbkdf2($P, $S, $c = 1000, $dkLen = 32, $Hash = 'sha256', $raw_output = false)
     {
         if(!in_array($Hash, hash_algos(), true)) return False;
         if($c <= 0 || $dkLen <= 0) return False;

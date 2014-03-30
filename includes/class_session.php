@@ -7,10 +7,10 @@ class Session {
     private static $spriv=False; // private key from session table
     private static $userpriv=False;
     
-    public function getUserid() { return self::$userid; }
-    public function getUserpriv() { return self::$userpriv; }
+    public static function getUserid() { return self::$userid; }
+    public static function getUserpriv() { return self::$userpriv; }
     
-    public function createsession() {
+    public static function createsession() {
         $sid=base64_encode(Crypto::getRandomBytes(32));
         $skey=base64_encode(Crypto::getRandomBytes(32));
         setcookie("sid",$sid);
@@ -21,14 +21,14 @@ class Session {
         die();
     }
     
-    public function destroysession() {
+    public static function destroysession() {
       if (!GPC::get("sid")) return;
       $sid=GPC::get("sid");
       DB::destroySession($sid);
       self::createsession();
     }
     
-    public function userlogin($username,$password) {
+    public static function userlogin($username,$password) {
         // no user logged in and login information found
         $user=DB::getUserByName($username); 
         // slow down login attempts
@@ -78,7 +78,7 @@ class Session {
         return True;
     }
     
-    function changepw($pw_old,$pw_new1,$pw_new2) {
+    static function changepw($pw_old,$pw_new1,$pw_new2) {
         if (self::$userid==0) return False;
         // change password
         if ($pw_new1 != $pw_new2) {
@@ -137,7 +137,7 @@ class Session {
         return True;
     }
     
-    function init() {
+    static function init() {
         if ((!GPC::get("sid") or !GPC::get("skey")) and GPC::get("newsession")) {
             // there should be cookies - if not = error
             Error::printCriticalError(STRING_ERROR_NOCOOKIES);
